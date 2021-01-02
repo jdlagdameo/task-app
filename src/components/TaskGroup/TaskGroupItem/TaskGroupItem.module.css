@@ -1,0 +1,7 @@
+.TaskGroupItem{
+    border-bottom: 1px solid #eee;
+}
+
+.strike{
+    text-decoration: line-through;
+}
