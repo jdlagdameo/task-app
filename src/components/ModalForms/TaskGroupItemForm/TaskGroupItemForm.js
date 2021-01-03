@@ -13,13 +13,14 @@ const TaskGroupItemForm = props => {
     return(
         <Modal show={props.show} onHide={props.handleClose}>
             <Modal.Body>
-                <Form onSubmit={props.submit}>
+                <Form onSubmit="event.preventDefault();">
                     <Form.Group controlId="formTaskGroup">
-                        <Form.Label>Task Name</Form.Label>
+                        <Form.Label><b>Task Name</b></Form.Label>
                         <Form.Control 
                             type="text" 
                             placeholder="Enter Task Name" 
-                            ref={props.taskGroupItemName}/>
+                            value={props.taskGroupItemName} 
+                            onChange={ (event) => props.change(event) } />
                     </Form.Group>
                 </Form>
             </Modal.Body>

@@ -1,16 +1,23 @@
 .Card{
     max-width: 250px;
     min-width: 250px !important;
-    margin-right: 10px;
+    margin-right: 50px;
     margin-top: 10px;
 }
 
 .CardBody{
     margin: 0px;
+    padding: 10px 10px 10px 10px !important;
 }
 
 .TaskList{
     list-style-type : none;
     margin: 0px;
     padding: 0px;
+}
+
+.TaskGroupFooter{
+    font-size: 14px;
+    text-align: right;
+    border-radius: none;
 }

@@ -22,9 +22,9 @@ const LOCAL_STORAGE_KEY = 'taskGroup';
 
 const Board = props => {
 
-    const taskGroupName = useRef('');
+    const [selectedGroupName, setSelectedGroupName] = useState('');
 
-    const taskGroupItemName = useRef('');
+    const [taskGroupItemName, setTaskGroupItemName] = useState('');
 
     const [taskList, setTaskList] = useState([]);
 
@@ -52,7 +52,7 @@ const Board = props => {
      * 
      */
     const addEditTaskGroupHandler = () => {
-      let getTaskGroupName = taskGroupName.current.value;
+      let getTaskGroupName = selectedGroupName;
       
       if(getTaskGroupName.trim().length === 0){ 
           alert('Please enter valid task group name') 
@@ -107,7 +107,7 @@ const Board = props => {
     const addEditTaskGroupItemHandler = () => {
       let taskGroupID = selectedTaskGroup;
       let taskGroupItemID = selectedTaskItem;
-      let val = taskGroupItemName.current.value;
+      let val = taskGroupItemName;
       
       if(val.trim().length === 0){ 
         alert('Please enter valid task name') 
@@ -256,6 +256,15 @@ const Board = props => {
      * Handle Bootstrap Modal show event
      */
     const showTaskItemFormHandler = (taskGroupID, taskGroupItemID = '') => {
+      if(taskGroupItemID !== '')
+      {
+        const group = taskList.filter(g => g.id == taskGroupID);
+        const task = group[0].tasks.filter( t => t.id == taskGroupItemID);
+        setTaskGroupItemName(task[0].name);
+      }else{
+        setTaskGroupItemName('');
+      }
+    
       setSelectedTaskGroup(taskGroupID !== ''? taskGroupID : '');
       setSelectedTaskItem(taskGroupItemID !== ''? taskGroupItemID : '');
       setShowTaskItemForm(true)
@@ -274,6 +283,8 @@ const Board = props => {
      * Handle Bootstrap Modal show event
      */
     const showTaskGroupFormHandler = id => {
+      const task = taskList.filter(task => task.id == id);
+      setSelectedGroupName(id !== ''? task[0].name : '');
       setSelectedTaskGroup(id !== ''? id : '');
       setShowTaskGroupForm(true)
     };
@@ -301,10 +312,19 @@ const Board = props => {
             key={tasks.id}>{tasks.name}</TaskGroup>
       ))
     );
-    
+        
+    const changeGroupNameHandler = ( e ) => {
+      setSelectedGroupName(e.target.value);
+    }
+
+    const changeTaskNameHandler = ( e ) => {
+      setTaskGroupItemName(e.target.value);
+    }
+
     return(
-        <div>
-          <Button 
+        <div className={classes.Board}>
+
+          <Button className={classes.ButtonCreate}
             onClick={() => showTaskGroupFormHandler('')}>Create New Task Group</Button>
 
           <Container className={classes.BoardContainer} fluid>
@@ -317,13 +337,15 @@ const Board = props => {
             close={closeTaskGroupFormHandler} 
             show={showTaskGroupForm}
             submitTaskGroup={addEditTaskGroupHandler} 
-            taskGroupName={taskGroupName} />
+            groupName={selectedGroupName}
+            change={changeGroupNameHandler} />
           
           <TaskGroupItemForm 
             close={closeTaskItemFormHandler} 
             show={showTaskItemForm} 
             submit={addEditTaskGroupItemHandler} 
-            taskGroupItemName={taskGroupItemName} />
+            taskGroupItemName={taskGroupItemName} 
+            change={changeTaskNameHandler} />
         </div>
     );
 

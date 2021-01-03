@@ -29,7 +29,7 @@ const taskGroupItem = props => {
                         className={classes.TaskGroupItem}>
                            
                         <Card>
-                            <Card.Body>
+                            <Card.Body style={{padding: '10px'}}>
                             <p>
                                 <input
                                     checked={props.done} 
@@ -37,7 +37,11 @@ const taskGroupItem = props => {
                                     onChange={() => { props.changeStatus(props.taskGroupID, props.taskGroupItemID) }}/> 
                                 { ' ' }
                                 <span className={props.done? classes.strike : ''}>{props.children}</span> <br/>
-                                <a href="#" onClick={() => props.showTaskForm(props.taskGroupID, props.taskGroupItemID)}>Edit</a> {' '}
+                               
+                            </p>
+                            <p style={{textAlign: 'right', fontSize: '14px'}}>
+                                <a href="#" 
+                                    onClick={() => props.showTaskForm(props.taskGroupID, props.taskGroupItemID)}>Edit</a> {' '}
                                 <a href="#"
                                     onClick={() => props.delete(props.taskGroupID, props.taskGroupItemID)}>Delete</a>
                             </p>

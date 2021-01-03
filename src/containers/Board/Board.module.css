@@ -1,7 +1,21 @@
+.Board{
+    padding: 15px;
+}
+.Board .ButtonCreate{
+    float: right;
+    margin-bottom: 10px;
+}
+
 .BoardContainer{
     /* display: flex; */
     /* flex-flow: row wrap; */
     /* justify-content: center; */
+    display: flex;
+    margin-top: 50px !important;
     width: 80%;
     margin: auto;
+    align-items: flex-start;
+    flex-direction: row;
 }
+
+

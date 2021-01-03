@@ -14,7 +14,7 @@ import TaskProgress from '../TaskProgress/TaskProgress';
 
 import { Card, Button, } from 'react-bootstrap';
 
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash, faPlus} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Droppable } from 'react-beautiful-dnd';
@@ -37,16 +37,18 @@ const taskGroup = props => {
     return (
         <Card className={classes.Card}>
             <Card.Header>
-                <b>{props.children}</b>
-                <Button variant="primary" size="sm" onClick={() => props.show(props.tasks.id)}>
-                    <FontAwesomeIcon icon={faEdit} />
-                </Button>
-
-                <Button variant="danger" size="sm" onClick={() => props.deleteTaskGroupHandler(props.tasks.id)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                </Button>
-
-                <br /> 
+                <div style={{display: 'flex', width: '100%'}}>
+                <div style={{width: '80%'}}><b>{props.children}</b></div>
+                    <div style={{textAlign: 'right', width: '20%'}}>
+                        <a href="#" onClick={() => props.show(props.tasks.id)}>
+                            <FontAwesomeIcon icon={faEdit} />
+                        </a>
+                        { ' ' }
+                        <a href="#" onClick={() => props.deleteTaskGroupHandler(props.tasks.id)}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </a>
+                    </div>
+                </div>
 
                 <TaskProgress tasks={props.tasks} />
 
@@ -63,10 +65,13 @@ const taskGroup = props => {
                 </Droppable>
             </Card.Body>
 
-            <Card.Footer>
-                <Button 
-                    size="sm" 
-                    onClick={() => props.showTaskForm(props.tasks.id)}>Add New Task</Button>
+            <Card.Footer className={classes.TaskGroupFooter}>
+                <p>
+                    <a href="#" 
+                        className={classes.addLink} 
+                        onClick={() => props.showTaskForm(props.tasks.id)}> 
+                            <FontAwesomeIcon icon={faPlus} /> Add New Task</a>
+                 </p>
             </Card.Footer>
         </Card>
     );
